@@ -9,7 +9,7 @@ class WikipediaskSpider(scrapy.Spider):
     name = "wikipediask"
     allowed_domains = ["sk.wikipedia.org"]
     start_urls = ["https://sk.wikipedia.org"]
-    url_limit = 100
+    url_limit = 400
     url_count = 0
     custom_settings = {
         "DEPTH_LIMIT": 5

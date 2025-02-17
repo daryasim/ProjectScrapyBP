@@ -8,7 +8,7 @@ class BlogPravdaSpider(scrapy.Spider):
     name = "blog_pravda"
     allowed_domains = ["blog.pravda.sk"]
     start_urls = ["https://blog.pravda.sk/?page=vsetky-clanky"]
-    page_limit = 20
+    page_limit = 10
     page_count = 0
 
     def parse(self, response):
