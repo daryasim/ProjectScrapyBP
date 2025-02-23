@@ -5,12 +5,11 @@ NEWSPIDER_MODULE = "projectscrapy.spiders"
 
 FEED_EXPORT_INDENT = 4
 
+
 FEEDS = {
-    '../../data/output_data.jl': {
-        'format': 'jl',
-        'encoding': 'utf8',
-        'store_empty': False,
-    },
+    "s3://projectscrapybp/%(name)s/%(name)s_%(time)s.jsonl": {
+    "format": "jsonlines",
+    }
 }
 
 DOWNLOAD_DELAY = 1
