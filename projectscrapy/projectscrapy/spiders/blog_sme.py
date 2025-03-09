@@ -5,10 +5,10 @@ from projectscrapy.items import MainItem
 
 
 class BlogSmeSpider(scrapy.Spider):
-    name = "blog_sme"
-    allowed_domains = ["blog.sme.sk"]
-    start_urls = ["https://blog.sme.sk/"]
-    page_limit = 10
+    name = 'blog_sme'
+    allowed_domains = ['blog.sme.sk']
+    start_urls = ['https://blog.sme.sk/']
+    page_limit = 5
     page_count = 0
 
     def parse(self, response):

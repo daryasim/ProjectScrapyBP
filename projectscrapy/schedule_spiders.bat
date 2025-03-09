@@ -6,4 +6,5 @@ scrapy crawl blog_sme
 scrapy crawl ukf
 scrapy crawl vedanadosah
 scrapy crawl wikipediask
+scrapy crawl generalspider
 pause

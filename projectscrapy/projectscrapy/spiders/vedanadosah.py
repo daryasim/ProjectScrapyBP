@@ -4,16 +4,12 @@ from bs4 import BeautifulSoup
 from projectscrapy.items import MainItem
 
 class VedanadosahSpider(scrapy.Spider):
-    name = "vedanadosah"
-    allowed_domains = ["vedanadosah.cvtisr.sk"]
+    name = 'vedanadosah'
+    allowed_domains = ['vedanadosah.cvtisr.sk']
     start_urls = [
-        "https://vedanadosah.cvtisr.sk/vsetky-clanky/",
-        "https://vedanadosah.cvtisr.sk/kategoria/priroda/",
-        "https://vedanadosah.cvtisr.sk/kategoria/technika/",
-        "https://vedanadosah.cvtisr.sk/kategoria/zdravie/",
-        "https://vedanadosah.cvtisr.sk/kategoria/ludia/"
+        'https://vedanadosah.cvtisr.sk/vsetky-clanky/'
     ]
-    page_limit = 10
+    page_limit = 5
     page_count = 0
 
     def parse(self, response):

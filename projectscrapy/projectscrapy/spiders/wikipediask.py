@@ -6,13 +6,13 @@ from projectscrapy.items import MainItem
 
 
 class WikipediaskSpider(scrapy.Spider):
-    name = "wikipediask"
-    allowed_domains = ["sk.wikipedia.org"]
-    start_urls = ["https://sk.wikipedia.org"]
-    url_limit = 400
+    name = 'wikipediask'
+    allowed_domains = ['sk.wikipedia.org']
+    start_urls = ['https://sk.wikipedia.org']
+    url_limit = 1000
     url_count = 0
     custom_settings = {
-        "DEPTH_LIMIT": 5
+        'DEPTH_LIMIT': '10'
     }
 
     def parse(self, response):
@@ -30,7 +30,7 @@ class WikipediaskSpider(scrapy.Spider):
 
     def parse_article(self, response):
         soup = BeautifulSoup(response.body, 'html.parser')
-        nazov = soup.select_one('h1.firstHeading span').get_text()
+        nazov = soup.select_one('h1').get_text()
         paragraphs = [p.get_text() for p in soup.select('div.mw-content-ltr.mw-parser-output p')]
         textovy_content = ' '.join(paragraphs)
 
@@ -47,7 +47,7 @@ class WikipediaskSpider(scrapy.Spider):
             for link in correct_links_article:
                 next_page_url = response.urljoin(link)
                 self.url_count += 1
-                if self.url_count <= self.url_limit:
+                if self.url_count < self.url_limit:
                     yield response.follow(next_page_url, callback=self.parse_article)
 
 

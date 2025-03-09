@@ -7,6 +7,7 @@ from projectscrapy.spiders.blog_sme import BlogSmeSpider
 from projectscrapy.spiders.blog_pravda import BlogPravdaSpider
 from projectscrapy.spiders.vedanadosah import VedanadosahSpider
 from projectscrapy.spiders.wikipediask import WikipediaskSpider
+from projectscrapy.spiders.generalspider import GeneralSpiderSpider
 
 process = CrawlerProcess(get_project_settings())
 
@@ -16,5 +17,6 @@ process.crawl(BlogSmeSpider)
 process.crawl(BlogPravdaSpider)
 process.crawl(VedanadosahSpider)
 process.crawl(WikipediaskSpider)
+process.crawl(GeneralSpiderSpider)
 
 process.start()

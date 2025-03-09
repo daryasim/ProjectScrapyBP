@@ -5,10 +5,10 @@ from projectscrapy.items import MainItem
 
 
 class UkfSpider(scrapy.Spider):
-    name = "ukf"
-    allowed_domains = ["ukf.sk"]
-    start_urls = ["https://www.ukf.sk/verejnost/aktuality/udalosti"]
-    page_limit = 10
+    name = 'ukf'
+    allowed_domains = ['ukf.sk']
+    start_urls = ['https://www.ukf.sk/verejnost/aktuality/udalosti']
+    page_limit = 5
     page_count = 0
 
     def parse(self, response):
@@ -26,11 +26,7 @@ class UkfSpider(scrapy.Spider):
         soup = BeautifulSoup(response.body, 'html.parser')
         title = soup.select_one('article h1').get_text()
         target_divs = soup.select('article div')
-        text_contents = []
-        for div in target_divs:
-            text_content = div.get_text()
-            text_contents.append(text_content)
-        content = " ".join(text_contents)
+        content = ' '.join(div.get_text() for div in target_divs)
 
         item = MainItem(
             title=title,
