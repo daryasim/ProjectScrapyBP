@@ -49,5 +49,3 @@ class WikipediaskSpider(scrapy.Spider):
                 self.url_count += 1
                 if self.url_count < self.url_limit:
                     yield response.follow(next_page_url, callback=self.parse_article)
-
-

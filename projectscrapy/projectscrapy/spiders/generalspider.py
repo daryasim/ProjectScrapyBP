@@ -30,6 +30,8 @@ class GeneralSpiderSpider(scrapy.Spider):
             if json_setting.get('pagination_link'):
                 actual_page = response.meta.get('actual_page', 1)
                 yield from self.pagination(response, json_setting, actual_page)
+        else:
+            self.logger.error('Could not fetch meta')
 
     def pagination(self, response, json_setting, actual_page):
         page_limit = json_setting.get('page_limit', float('inf'))

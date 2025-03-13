@@ -1,85 +1,101 @@
 {
-    "websites": [
-        {
-            "allowed_domains": "hnonline.sk",
-            "start_urls": [
-                "https://hnonline.sk/"
-            ],
-            "link_selector": [
-                "a.card__article-link::attr(href)"
-            ],
-            "title_selector": "h1.item__title::text",
-            "content_selectors": [
-                "div.itemFullText p::text"
-            ]
-        },
-        {
-            "allowed_domains": "modrykonik.sk",
-            "start_urls": [
-                "https://www.modrykonik.sk/"
-            ],
-            "link_selector": [
-                "a.st_a.bha_a::attr(href)"
-            ],
-            "title_selector": "h1 span::text",
-            "content_selectors": [
-                "p::text"
-            ]
-        },
-        {
-            "allowed_domains": "dennikn.sk",
-            "start_urls": [
-                "https://dennikn.sk/blog/"
-            ],
-            "link_selector": [
-                "h3 a::attr(href)"
-            ],
-            "title_selector": "h1::text",
-            "content_selectors": [
-                "div.entry-content p::text"
-            ]
-        },
-        {
-            "allowed_domains": "startitup.sk",
-            "start_urls": [
-                "https://www.startitup.sk/"
-            ],
-            "link_selector": [
-                "article a::attr(href)"
-            ],
-            "title_selector": "h1::text",
-            "content_selectors": [
-                "div.article__main p::text"
-            ]
-        },
-        {
-            "allowed_domains": "emefka.sk",
-            "start_urls": [
-                "https://emefka.sk/"
-            ],
-            "link_selector": [
-                "h3.entry-title a::attr(href)",
-                "h2.entry-title a::attr(href)"
-            ],
-            "title_selector": "h1::text",
-            "content_selectors": [
-                "div[itemprop=\"articleBody\"] p::text"
-            ]
-        },
-       {
-            "allowed_domains": "bazos.sk",
-            "start_urls": [
-                "https://praca.bazos.sk/"
-            ],
-            "link_selector": [
-                "div.inzeratynadpis a::attr(href)"
-            ],
-            "title_selector": "h1.nadpisdetail::text",
-            "content_selectors": [
-                "div.popisdetail::text"
-            ],
-            "pagination_link": "div.strankovani a:last-of-type::attr(href)",
-            "page_limit": 2
-        }
-    ]
+  "websites": [
+    {
+      "allowed_domains": "modrykonik.sk",
+      "start_urls": [
+        "https://www.modrykonik.sk/"
+      ],
+      "link_selector": [
+        "a.st_a.bha_a::attr(href)"
+      ],
+      "title_selector": "h1 span::text",
+      "content_selectors": [
+        "p::text"
+      ],
+      "pagination_link": "a:bas_a.bha_i.bha_x::attr(href)",
+      "page_limit": 30
+    },
+    {
+      "allowed_domains": "dennikn.sk",
+      "start_urls": [
+        "https://dennikn.sk/blog/"
+      ],
+      "link_selector": [
+        "h3 a::attr(href)"
+      ],
+      "title_selector": "h1::text",
+      "content_selectors": [
+        "div.entry-content p::text"
+      ]
+    },
+    {
+      "allowed_domains": "startitup.sk",
+      "start_urls": [
+        "https://www.startitup.sk/"
+      ],
+      "link_selector": [
+        "article a::attr(href)"
+      ],
+      "title_selector": "h1::text",
+      "content_selectors": [
+        "div.article__main p::text"
+      ]
+    },
+    {
+      "allowed_domains": "emefka.sk",
+      "start_urls": [
+        "https://emefka.sk/"
+      ],
+      "link_selector": [
+        "h3.entry-title a::attr(href)",
+        "h2.entry-title a::attr(href)"
+      ],
+      "title_selector": "h1::text",
+      "content_selectors": [
+        "div[itemprop=\"articleBody\"] p::text"
+      ]
+    },
+    {
+      "allowed_domains": "bazos.sk",
+      "start_urls": [
+        "https://praca.bazos.sk/"
+      ],
+      "link_selector": [
+        "div.inzeratynadpis a::attr(href)"
+      ],
+      "title_selector": "h1.nadpisdetail::text",
+      "content_selectors": [
+        "div.popisdetail::text"
+      ],
+      "pagination_link": "div.strankovani a:last-of-type::attr(href)",
+      "page_limit": 2
+    },
+    {
+      "allowed_domains": "slov-lex.sk",
+      "start_urls": [
+        "https://www.slov-lex.sk/ezbierky/vyhladavanie-pravnych-predpisov"
+      ],
+      "link_selector": [
+        "a.idsk-link.idsk-link-small.nazov-link::attr(href)"
+      ],
+      "title_selector": "h1::text",
+      "content_selectors": [
+        "div.text::text"
+      ]
+    },
+    {
+      "allowed_domains": "diskusneforum.sk",
+      "start_urls": [
+        "https://www.diskusneforum.sk/"
+      ],
+      "link_selector": [
+        "div.boxlight.p5.mb10 div.p5 a.bigger::attr(href)",
+        "div.boxlight.p5.mb10 div.p5 a.bold.bigger::attr(href)"
+      ],
+      "title_selector": "h1.mb10::text",
+      "content_selectors": [
+        "div.mb10::text"
+      ]
+    }
+  ]
 }

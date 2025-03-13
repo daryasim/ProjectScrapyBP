@@ -20,82 +20,21 @@ class SqlitePipeline:
         self.con = sqlite3.connect(path)
         self.cur = self.con.cursor()
 
-        self.cur.execute('''
-            CREATE TABLE IF NOT EXISTS novinysk (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                content TEXT,
-                preprocessed_content TEXT,
-                url TEXT UNIQUE,
-                scraped_at TEXT DEFAULT (datetime('now', 'localtime'))
-            )
-        ''')
-
-        self.cur.execute('''
-            CREATE TABLE IF NOT EXISTS ukfsk (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                content TEXT,
-                preprocessed_content TEXT,
-                url TEXT UNIQUE,
-                scraped_at TEXT DEFAULT (datetime('now', 'localtime'))
-            )
-        ''')
-
-        self.cur.execute('''
-            CREATE TABLE IF NOT EXISTS blogsmesk (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                content TEXT,
-                preprocessed_content TEXT,
-                url TEXT UNIQUE,
-                scraped_at TEXT DEFAULT (datetime('now', 'localtime'))
-            )
-        ''')
-
-        self.cur.execute('''
-            CREATE TABLE IF NOT EXISTS blogpravdask (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                content TEXT,
-                preprocessed_content TEXT,
-                url TEXT UNIQUE,
-                scraped_at TEXT DEFAULT (datetime('now', 'localtime'))
-            )
-        ''')
-
-        self.cur.execute('''
-            CREATE TABLE IF NOT EXISTS vedanadosahsk (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                content TEXT,
-                preprocessed_content TEXT,
-                url TEXT UNIQUE,
-                scraped_at TEXT DEFAULT (datetime('now', 'localtime'))
-            )
-        ''')
-
-        self.cur.execute('''
-            CREATE TABLE IF NOT EXISTS wikipediask (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                content TEXT,
-                preprocessed_content TEXT,
-                url TEXT UNIQUE,
-                scraped_at TEXT DEFAULT (datetime('now', 'localtime'))
-            )
-        ''')
-
-        self.cur.execute('''
-            CREATE TABLE IF NOT EXISTS generalspider (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                content TEXT,
-                preprocessed_content TEXT,
-                url TEXT UNIQUE,
-                scraped_at TEXT DEFAULT (datetime('now', 'localtime'))
-            )
-        ''')
+        tables = ['wikipediask', 'generalspider', 'novinysk', 'ukfsk', 'blogsmesk', 'blogpravdask', 'vedanadosahsk']
+        columns_def = '''
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            content TEXT,
+            preprocessed_content TEXT,
+            url TEXT UNIQUE,
+            scraped_at TEXT DEFAULT (datetime('now', 'localtime'))
+        '''
+        for table in tables:
+            self.cur.execute(f'''
+                CREATE TABLE IF NOT EXISTS {table} (
+                    {columns_def}
+                )
+            ''')
 
     def process_item(self, item, spider):
         try:
