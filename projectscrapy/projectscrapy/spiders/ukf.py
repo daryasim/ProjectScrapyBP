@@ -12,25 +12,31 @@ class UkfSpider(scrapy.Spider):
     page_count = 0
 
     def parse(self, response):
-        clanky_linky = response.css('td.list-title a::attr(href)').getall()
-        for link in clanky_linky:
-            yield response.follow(link, callback=self.parse_article)
+        try:
+            clanky_linky = response.css('td.list-title a::attr(href)').getall()
+            for link in clanky_linky:
+                yield response.follow(link, callback=self.parse_article)
 
-        if self.page_count < self.page_limit:
-            next_page = response.css('li a[title="Nasl."]::attr(href)').get()
-            if next_page:
-                self.page_count += 1
-                yield response.follow(next_page, callback=self.parse, dont_filter=True)
+            if self.page_count < self.page_limit:
+                next_page = response.css('li a[title="Nasl."]::attr(href)').get()
+                if next_page:
+                    self.page_count += 1
+                    yield response.follow(next_page, callback=self.parse, dont_filter=True)
+        except Exception as e:
+            self.logger.error(e)
 
     def parse_article(self, response):
-        soup = BeautifulSoup(response.body, 'html.parser')
-        title = soup.select_one('article h1').get_text()
-        target_divs = soup.select('article div')
-        content = ' '.join(div.get_text() for div in target_divs)
+        try:
+            soup = BeautifulSoup(response.body, 'html.parser')
+            title = soup.select_one('article h1').get_text()
+            target_divs = soup.select('article div')
+            content = ' '.join(div.get_text() for div in target_divs)
 
-        item = MainItem(
-            title=title,
-            content=content,
-            url=response.url
-        )
-        yield item
+            item = MainItem(
+                title=title,
+                content=content,
+                url=response.url
+            )
+            yield item
+        except Exception as e:
+            self.logger.error(e)

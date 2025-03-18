@@ -12,26 +12,32 @@ class BlogPravdaSpider(scrapy.Spider):
     page_count = 0
 
     def parse(self, response):
-        clanky_linky = response.css('div.najnovsiePrispevky.mato h2 a::attr(href)').getall()
-        for link in clanky_linky:
-            yield response.follow(link, callback=self.parse_article)
+        try:
+            clanky_linky = response.css('div.najnovsiePrispevky.mato h2 a::attr(href)').getall()
+            for link in clanky_linky:
+                yield response.follow(link, callback=self.parse_article)
 
-        if self.page_count < self.page_limit:
-            next_page = response.css('a.nextpostslink::attr(href)').get()
-            if next_page:
-                next_page_url = response.urljoin(next_page)
-                self.page_count += 1
-                yield response.follow(next_page_url, callback=self.parse, dont_filter=True)
+            if self.page_count < self.page_limit:
+                next_page = response.css('a.nextpostslink::attr(href)').get()
+                if next_page:
+                    next_page_url = response.urljoin(next_page)
+                    self.page_count += 1
+                    yield response.follow(next_page_url, callback=self.parse, dont_filter=True)
+        except Exception as e:
+            self.logger.error(e)
 
     def parse_article(self, response):
-        soup = BeautifulSoup(response.body, 'html.parser')
-        nazov = soup.select_one('div.post-title h2').get_text()
-        paragraphs = [p.get_text() for p in soup.select('div[itemprop="articleBody"] p')]
-        textovy_content = ' '.join(paragraphs)
+        try:
+            soup = BeautifulSoup(response.body, 'html.parser')
+            nazov = soup.select_one('div.post-title h2').get_text()
+            paragraphs = [p.get_text() for p in soup.select('div[itemprop="articleBody"] p')]
+            textovy_content = ' '.join(paragraphs)
 
-        item = MainItem(
-            title=nazov,
-            content=textovy_content,
-            url=response.url
-        )
-        yield item
+            item = MainItem(
+                title=nazov,
+                content=textovy_content,
+                url=response.url
+             )
+            yield item
+        except Exception as e:
+            self.logger.error(e)

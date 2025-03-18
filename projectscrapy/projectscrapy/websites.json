@@ -1,19 +1,17 @@
 {
   "websites": [
     {
-      "allowed_domains": "modrykonik.sk",
+      "allowed_domains": "startitup.sk",
       "start_urls": [
-        "https://www.modrykonik.sk/"
+        "https://www.startitup.sk/"
       ],
       "link_selector": [
-        "a.st_a.bha_a::attr(href)"
+        "//article//a/@href"
       ],
-      "title_selector": "h1 span::text",
+      "title_selector": "//h1/text()",
       "content_selectors": [
-        "p::text"
-      ],
-      "pagination_link": "a:bas_a.bha_i.bha_x::attr(href)",
-      "page_limit": 30
+        "//div[contains(@class, 'article__main')]//p/text()"
+      ]
     },
     {
       "allowed_domains": "dennikn.sk",
@@ -21,25 +19,14 @@
         "https://dennikn.sk/blog/"
       ],
       "link_selector": [
-        "h3 a::attr(href)"
+        "//h3//a/@href"
       ],
-      "title_selector": "h1::text",
+      "title_selector": "//h1//text()",
       "content_selectors": [
-        "div.entry-content p::text"
-      ]
-    },
-    {
-      "allowed_domains": "startitup.sk",
-      "start_urls": [
-        "https://www.startitup.sk/"
+        "//div[contains(@class, 'entry-content')]//p/text()"
       ],
-      "link_selector": [
-        "article a::attr(href)"
-      ],
-      "title_selector": "h1::text",
-      "content_selectors": [
-        "div.article__main p::text"
-      ]
+      "pagination_link": "//nav//a[contains(text(), 'Staršie')]/@href",
+      "page_limit": 5
     },
     {
       "allowed_domains": "emefka.sk",
@@ -47,55 +34,62 @@
         "https://emefka.sk/"
       ],
       "link_selector": [
-        "h3.entry-title a::attr(href)",
-        "h2.entry-title a::attr(href)"
+        "//h3[contains(@class, 'entry-title')]//a/@href",
+        "//h2[contains(@class, 'entry-title')]//a/@href"
       ],
-      "title_selector": "h1::text",
+      "title_selector": "//h1/text()",
       "content_selectors": [
-        "div[itemprop=\"articleBody\"] p::text"
+        "//div[@itemprop='articleBody']//p/text()"
       ]
     },
     {
-      "allowed_domains": "bazos.sk",
+      "allowed_domains": "hnonline.sk",
       "start_urls": [
-        "https://praca.bazos.sk/"
+        "https://hnonline.sk/"
       ],
       "link_selector": [
-        "div.inzeratynadpis a::attr(href)"
+        "//a[contains(@class, 'card__article-link')]/@href"
       ],
-      "title_selector": "h1.nadpisdetail::text",
+      "title_selector": "//h1[contains(@class, 'item__title')]/text()",
       "content_selectors": [
-        "div.popisdetail::text"
-      ],
-      "pagination_link": "div.strankovani a:last-of-type::attr(href)",
-      "page_limit": 2
-    },
-    {
-      "allowed_domains": "slov-lex.sk",
-      "start_urls": [
-        "https://www.slov-lex.sk/ezbierky/vyhladavanie-pravnych-predpisov"
-      ],
-      "link_selector": [
-        "a.idsk-link.idsk-link-small.nazov-link::attr(href)"
-      ],
-      "title_selector": "h1::text",
-      "content_selectors": [
-        "div.text::text"
+        "//div[@class='itemFullText']//p/text()"
       ]
     },
-    {
-      "allowed_domains": "diskusneforum.sk",
+     {
+      "allowed_domains": "www.zoznam.sk",
       "start_urls": [
-        "https://www.diskusneforum.sk/"
+        "https://urobsisam.zoznam.sk/",
+        "https://sportky.zoznam.sk/",
+        "https://openiazoch.zoznam.sk/",
+        "https://dromedar.zoznam.sk/"
       ],
       "link_selector": [
-        "div.boxlight.p5.mb10 div.p5 a.bigger::attr(href)",
-        "div.boxlight.p5.mb10 div.p5 a.bold.bigger::attr(href)"
+        "//h3[@class='listing-item__title']//a/@href",
+        "//a[@class='article-item-title']/@href",
+        "//a[@class='article-title' or @class='article-medium-title' or @class='article-small-title']/@href"
+
       ],
-      "title_selector": "h1.mb10::text",
+      "title_selector": "//h1/text()",
       "content_selectors": [
-        "div.mb10::text"
+        "//div[@class='article-body' or @class='post-content__text' or @class='article-content']//p/text()",
+        "//article//p/text()"
       ]
+    },
+     {
+      "allowed_domains": "www.topky.sk",
+      "start_urls": [
+        "https://najrecept.topky.sk/najnovsie-recepty"
+      ],
+      "link_selector": [
+        "//a[@class='-X']/@href"
+      ],
+      "title_selector": "//h1/text()",
+      "content_selectors": [
+        "//div[@class='instructions']//p/text()",
+        "//p[contains(@class, 'perex')]/text()"
+      ],
+       "pagination_link": "//a[contains(@class,'link') and contains(@class,'right')]/@href",
+       "page_limit": 5
     }
   ]
 }

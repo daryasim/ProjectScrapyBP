@@ -16,36 +16,42 @@ class WikipediaskSpider(scrapy.Spider):
     }
 
     def parse(self, response):
-        if self.url_count >= self.url_limit:
-            return
-
-        links = response.css('a::attr(href)').getall()
-        correct_links = [link for link in links if re.match(r'/wiki/[a-zA-Z]', link) and ':' not in link]
-
-        if correct_links:
-            for link in correct_links:
-                next_page_url = response.urljoin(link)
-                self.url_count += 1
-                yield response.follow(next_page_url, callback=self.parse_article)
+        try:
+            if self.url_count >= self.url_limit:
+                return
+            links = response.css('a::attr(href)').getall()
+            correct_links = [link for link in links if
+                             re.match(r'/wiki/[a-zA-Z]', link) and ':' not in link]
+            if correct_links:
+                for link in correct_links:
+                    next_page_url = response.urljoin(link)
+                    self.url_count += 1
+                    yield response.follow(next_page_url, callback=self.parse_article)
+        except Exception as e:
+            self.logger.error(e)
 
     def parse_article(self, response):
-        soup = BeautifulSoup(response.body, 'html.parser')
-        nazov = soup.select_one('h1').get_text()
-        paragraphs = [p.get_text() for p in soup.select('div.mw-content-ltr.mw-parser-output p')]
-        textovy_content = ' '.join(paragraphs)
+        try:
+            soup = BeautifulSoup(response.body, 'html.parser')
+            nazov = soup.select_one('h1').get_text()
+            paragraphs = [p.get_text() for p in soup.select('div.mw-content-ltr.mw-parser-output p')]
+            textovy_content = ' '.join(paragraphs)
 
-        item = MainItem(
-            title=nazov,
-            content=textovy_content,
-            url=response.url
-        )
-        yield item
+            item = MainItem(
+                title=nazov,
+                content=textovy_content,
+                url=response.url
+            )
+            yield item
 
-        if self.url_count < self.url_limit:
-            links_article = response.css('a::attr(href)').getall()
-            correct_links_article = [link for link in links_article if re.match(r'/wiki/[a-zA-Z]', link) and ':' not in link]
-            for link in correct_links_article:
-                next_page_url = response.urljoin(link)
-                self.url_count += 1
-                if self.url_count < self.url_limit:
-                    yield response.follow(next_page_url, callback=self.parse_article)
+            if self.url_count < self.url_limit:
+                links_article = response.css('a::attr(href)').getall()
+                correct_links_article = [link for link in links_article if
+                                         re.match(r'/wiki/[a-zA-Z]', link) and ':' not in link]
+                for link in correct_links_article:
+                    next_page_url = response.urljoin(link)
+                    self.url_count += 1
+                    if self.url_count < self.url_limit:
+                        yield response.follow(next_page_url, callback=self.parse_article)
+        except Exception as e:
+            self.logger.error(e)
