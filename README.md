@@ -25,8 +25,8 @@ python spiders_run.py
 ```bash
 scrapy crawl spider_name
 ```
+* Pre kontrolu zoznamu cieľových stránok (pridávanie/mazanie) je potrebné prejsť do súboru *websites.json*. 
 * Pre prehľad získaných textových dát otvorte databázový súbor *data.db* cez predtým nainštalovaný nástroj.
 ## Plánovanie spúšťania spiderov
 * Pre Windows: Otvorte nástroj Task Scheduler a v sekcii *Actions* kliknite na *Create Basic Task*. Následne zvoľte interval a čas spustenia úlohy a pridajte súbor *schedule_spiders.bat* (predtým nahraďte v súbore cestu k projektu správnou cestou podľa umiestnenia na vašom systéme). Po dosiahnutí nastaveného času sa otvorí terminál a spustia sa spideri.
 
-......To be continued.....
