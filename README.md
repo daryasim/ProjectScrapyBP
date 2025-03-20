@@ -1,4 +1,4 @@
-
+ *! Databázový súbor data.db kvôli svojej veľkosti nemohol byť nahraný. Je k dispozícii [tu](https://huggingface.co/datasets/darysim/slovak_texts_dataset/tree/main). !* 
 ## Inštalácia a spustenie
 
 * Klonujte/stiahnite projekt z repozitára.
