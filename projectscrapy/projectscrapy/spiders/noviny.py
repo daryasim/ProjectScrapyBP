@@ -17,8 +17,8 @@ class NovinySpider(scrapy.Spider):
 
     def parse(self, response):
         try:
-            clanky_linky = response.css('h3.title a::attr(href)').getall()
-            for link in clanky_linky:
+            article_linky = response.css('h3.title a::attr(href)').getall()
+            for link in article_linky:
                 yield response.follow(link, callback=self.parse_article)
         except Exception as e:
             self.logger.error(e)

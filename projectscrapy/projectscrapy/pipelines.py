@@ -91,15 +91,13 @@ class CleanTextPipeline:
         item['content'] = re.sub(r'[\u200b\uFEFF]', '', item['content'])
         item['content'] = re.sub(r'\s+', ' ', item['content']).strip()
         if isinstance(spider, NovinySpider):
-            if 'content' in item:
-                item['content'] = item['content'].replace(
-                    'Vďaka financiám z reklamy prinášame kvalitné a objektívne informácie. '
-                    'Povoľte si prosím zobrazovanie reklamy na našom webe. '
-                    'Ďakujeme, že podporujete kvalitnú žurnalistiku. ', ''
-                )
+            item['content'] = item['content'].replace(
+                'Vďaka financiám z reklamy prinášame kvalitné a objektívne informácie. '
+                'Povoľte si prosím zobrazovanie reklamy na našom webe. '
+                'Ďakujeme, že podporujete kvalitnú žurnalistiku. ', ''
+            )
         if isinstance(spider, WikipediaskSpider):
-            if 'content' in item:
-                item['content'] = re.sub(r'\[\d+]', '', item['content'])
+            item['content'] = re.sub(r'\[\d+]', '', item['content'])
         return item
 
 

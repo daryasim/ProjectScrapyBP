@@ -23,7 +23,6 @@ class GeneralSpiderSpider(scrapy.Spider):
 
     def parse(self, response):
         json_setting = response.meta['web_data']
-
         try:
             article_linky = []
             for selector in json_setting.get('link_selector', []):
@@ -34,7 +33,7 @@ class GeneralSpiderSpider(scrapy.Spider):
                 actual_page = response.meta.get('actual_page', 1)
                 yield from self.pagination(response, json_setting, actual_page)
         except KeyError as e:
-            self.logger.error(f'Missing key in json setting: {e} , url: {response.url}')
+            self.logger.error(f'Missing row in json setting: {e} , url: {response.url}')
         except Exception as e:
             self.logger.error(e)
 
@@ -73,7 +72,7 @@ class GeneralSpiderSpider(scrapy.Spider):
             )
             yield item
         except KeyError as e:
-            self.logger.error(f'Missing key in json setting: {e} , url: {response.url}')
+            self.logger.error(f'Missing row in json setting: {e} , url: {response.url}')
         except Exception as e:
             self.logger.error(e)
 

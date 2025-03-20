@@ -7,22 +7,27 @@ from projectscrapy.items import MainItem
 class BlogPravdaSpider(scrapy.Spider):
     name = 'blog_pravda'
     allowed_domains = ['blog.pravda.sk']
-    start_urls = ['https://blog.pravda.sk/?page=vsetky-clanky']
+    start_urls = ['https://blog.pravda.sk/vsetky-clanky/']
     page_limit = 5
-    page_count = 0
+
+    def start_requests(self):
+        for url in self.start_urls:
+            yield scrapy.Request(url, callback=self.parse, meta={'url': url, 'page_count': 1})
 
     def parse(self, response):
+        page_count = response.meta['page_count']
         try:
-            clanky_linky = response.css('div.najnovsiePrispevky.mato h2 a::attr(href)').getall()
-            for link in clanky_linky:
+            article_linky = response.css('div.najnovsiePrispevky.mato h2 a::attr(href)').getall()
+            for link in article_linky:
                 yield response.follow(link, callback=self.parse_article)
 
-            if self.page_count < self.page_limit:
+            if page_count < self.page_limit:
                 next_page = response.css('a.nextpostslink::attr(href)').get()
                 if next_page:
                     next_page_url = response.urljoin(next_page)
-                    self.page_count += 1
-                    yield response.follow(next_page_url, callback=self.parse, dont_filter=True)
+                    yield response.follow(next_page_url, callback=self.parse,
+                                          meta={'url': response.meta['url'], 'page_count': page_count + 1},
+                                          dont_filter=True)
         except Exception as e:
             self.logger.error(e)
 
@@ -37,7 +42,7 @@ class BlogPravdaSpider(scrapy.Spider):
                 title=nazov,
                 content=textovy_content,
                 url=response.url
-             )
+            )
             yield item
         except Exception as e:
             self.logger.error(e)

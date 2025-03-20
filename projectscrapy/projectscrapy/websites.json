@@ -3,7 +3,7 @@
     {
       "allowed_domains": "startitup.sk",
       "start_urls": [
-        "https://www.startitup.sk/"
+        "https://www.startitup.sk/kategoria/hlavne-spravy-a-aktuality/"
       ],
       "link_selector": [
         "//article//a/@href"
@@ -11,7 +11,9 @@
       "title_selector": "//h1/text()",
       "content_selectors": [
         "//div[contains(@class, 'article__main')]//p/text()"
-      ]
+      ],
+      "pagination_link": "//a[contains(@aria-label, 'Next page')]/@href",
+      "page_limit": 5
     },
     {
       "allowed_domains": "dennikn.sk",
@@ -55,7 +57,7 @@
         "//div[@class='itemFullText']//p/text()"
       ]
     },
-     {
+    {
       "allowed_domains": "www.zoznam.sk",
       "start_urls": [
         "https://urobsisam.zoznam.sk/",
@@ -67,7 +69,6 @@
         "//h3[@class='listing-item__title']//a/@href",
         "//a[@class='article-item-title']/@href",
         "//a[@class='article-title' or @class='article-medium-title' or @class='article-small-title']/@href"
-
       ],
       "title_selector": "//h1/text()",
       "content_selectors": [
@@ -75,7 +76,7 @@
         "//article//p/text()"
       ]
     },
-     {
+    {
       "allowed_domains": "www.topky.sk",
       "start_urls": [
         "https://najrecept.topky.sk/najnovsie-recepty"
@@ -88,8 +89,8 @@
         "//div[@class='instructions']//p/text()",
         "//p[contains(@class, 'perex')]/text()"
       ],
-       "pagination_link": "//a[contains(@class,'link') and contains(@class,'right')]/@href",
-       "page_limit": 5
+      "pagination_link": "//a[contains(@class,'link') and contains(@class,'right')]/@href",
+      "page_limit": 5
     }
   ]
 }
