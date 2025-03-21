@@ -10,9 +10,6 @@ class WikipediaskSpider(scrapy.Spider):
     allowed_domains = ['sk.wikipedia.org']
     start_urls = ['https://sk.wikipedia.org']
     url_limit = 1000
-    custom_settings = {
-        'DEPTH_LIMIT': '10'
-    }
 
     def start_requests(self):
         for url in self.start_urls:
@@ -30,8 +27,7 @@ class WikipediaskSpider(scrapy.Spider):
                 for link in correct_linky:
                     next_page_url = response.urljoin(link)
                     yield response.follow(next_page_url, callback=self.parse_article,
-                                          meta={'url': response.meta['url'], 'url_count': url_count + 1},
-                                          dont_filter=True)
+                                          meta={'url': response.meta['url'], 'url_count': url_count + 1})
         except Exception as e:
             self.logger.error(e)
 
@@ -58,7 +54,6 @@ class WikipediaskSpider(scrapy.Spider):
             for link in correct_article_linky:
                 next_page_url = response.urljoin(link)
                 yield response.follow(next_page_url, callback=self.parse,
-                                      meta={'url': response.meta['url'], 'url_count': url_count + 1},
-                                      dont_filter=True)
+                                      meta={'url': response.meta['url'], 'url_count': url_count + 1})
         except Exception as e:
             self.logger.error(e)
