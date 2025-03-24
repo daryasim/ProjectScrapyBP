@@ -16,26 +16,20 @@ class NovinySpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        try:
-            article_linky = response.css('h3.title a::attr(href)').getall()
-            for link in article_linky:
-                yield response.follow(link, callback=self.parse_article)
-        except Exception as e:
-            self.logger.error(e)
+        article_linky = response.css('h3.title a::attr(href)').getall()
+        for link in article_linky:
+            yield response.follow(link, callback=self.parse_article)
 
     def parse_article(self, response):
-        try:
-            soup = BeautifulSoup(response.body, 'html.parser')
-            nazov = soup.select_one('h1').get_text()
-            target_divs = soup.select('div.c-rte, div.entry')
-            paragraphs = [p for div in target_divs for p in div.find_all('p')]
-            textovy_content = ' '.join(p.get_text() for p in paragraphs)
+        soup = BeautifulSoup(response.body, 'html.parser')
+        nazov = soup.select_one('h1').get_text()
+        target_divs = soup.select('div.c-rte, div.entry')
+        paragraphs = [p for div in target_divs for p in div.find_all('p')]
+        textovy_content = ' '.join(p.get_text() for p in paragraphs)
 
-            item = MainItem(
-                title=nazov,
-                content=textovy_content,
-                url=response.url
-            )
-            yield item
-        except Exception as e:
-            self.logger.error(e)
+        item = MainItem(
+            title=nazov,
+            content=textovy_content,
+            url=response.url
+        )
+        yield item
