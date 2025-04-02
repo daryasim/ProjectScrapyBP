@@ -16,10 +16,10 @@ class WikipediaskSpider(scrapy.Spider):
         if self.url_count >= self.url_limit:
             return
         links = response.css('a::attr(href)').getall()
-        correct_links = [link for link in links if
+        correct_linky = [link for link in links if
                          re.match(r'/wiki/[a-zA-Z]', link) and ':' not in link]
-        if correct_links:
-            for link in correct_links:
+        if correct_linky:
+            for link in correct_linky:
                 next_page_url = response.urljoin(link)
                 self.url_count += 1
                 yield response.follow(next_page_url, callback=self.parse_article)
@@ -38,10 +38,10 @@ class WikipediaskSpider(scrapy.Spider):
         yield item
 
         if self.url_count < self.url_limit:
-            links_article = response.css('a::attr(href)').getall()
-            correct_links_article = [link for link in links_article if
+            linky_article = response.css('a::attr(href)').getall()
+            correct_linky_article = [link for link in linky_article if
                                      re.match(r'/wiki/[a-zA-Z]', link) and ':' not in link]
-            for link in correct_links_article:
+            for link in correct_linky_article:
                 next_page_url = response.urljoin(link)
                 self.url_count += 1
                 if self.url_count < self.url_limit:

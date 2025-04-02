@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 from projectscrapy.items import MainItem
 
+
 class VedanadosahSpider(scrapy.Spider):
     name = 'vedanadosah'
     allowed_domains = ['vedanadosah.cvtisr.sk']

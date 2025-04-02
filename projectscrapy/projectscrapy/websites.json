@@ -91,6 +91,36 @@
       ],
       "pagination_link": "//a[contains(@class,'link') and contains(@class,'right')]/@href",
       "page_limit": 5
+    },
+    {
+      "allowed_domains": "trend.sk",
+      "start_urls": [
+        "https://www.trend.sk/r/spravy/"
+      ],
+      "link_selector": [
+        "//article//a/@href"
+      ],
+      "title_selector": "//h1/text()",
+      "content_selectors": [
+        "//div[@class='article-body']//p/text()"
+      ],
+      "pagination_link": "//a[@class='control' and @data-test='next']/@href",
+      "page_limit": 2
+    },
+    {
+      "allowed_domains": "zive.aktuality.sk",
+      "start_urls": [
+        "https://zive.aktuality.sk/spravy/"
+      ],
+      "link_selector": [
+        "//a[@class='medium-title']/@href"
+      ],
+      "title_selector": "//h1/text()",
+      "content_selectors": [
+        "//div[@id='article-full-content']//p/text()"
+      ],
+      "pagination_link": "//a[@title='Ďalej']/@href",
+      "page_limit": 5
     }
   ]
 }

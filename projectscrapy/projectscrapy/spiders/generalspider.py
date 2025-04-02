@@ -40,7 +40,8 @@ class GeneralSpiderSpider(scrapy.Spider):
                 next_page_url,
                 callback=self.parse,
                 meta={'web_data': json_setting, 'actual_page': actual_page + 1},
-                dont_filter=True)
+                dont_filter=True
+            )
         else:
             self.logger.info('No link, check selector')
 
