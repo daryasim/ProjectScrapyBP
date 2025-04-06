@@ -121,6 +121,38 @@
       ],
       "pagination_link": "//a[@title='Ďalej']/@href",
       "page_limit": 5
+    },
+    {
+      "allowed_domains": "touchit.sk",
+      "start_urls": [
+        "https://touchit.sk/vsetky-spravy"
+      ],
+      "link_selector": [
+        "//a[@itemprop='url']/@href"
+      ],
+      "title_selector": "//h1/text()",
+      "content_selectors": [
+        "//div[@itemprop='articleBody']//p/text()"
+      ],
+       "pagination_link": "//div[@class='tit-pagination']//a/@href",
+       "page_limit": 5
+    },
+    {
+      "allowed_domains": "interez.sk",
+      "start_urls": [
+        "https://www.interez.sk/spravy-z-domova",
+        "https://www.interez.sk/spravy-zo-sveta"
+      ],
+      "link_selector": [
+        "//h2[@class='entry-title']//a/@href"
+      ],
+      "title_selector": "//h1/text()",
+      "content_selectors": [
+        "//div[@class='manual-excerpt']/text()",
+        "//article[@class='entry-content']//p/text()"
+      ],
+       "pagination_link": "//a[contains(@class, 'next') and contains(@class, 'page-numbers')]/@href",
+       "page_limit": 5
     }
   ]
 }

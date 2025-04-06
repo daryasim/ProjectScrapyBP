@@ -26,12 +26,12 @@ class GeneralSpiderSpider(scrapy.Spider):
         for link in article_linky:
             yield response.follow(link, callback=self.parse_article, meta={'web_data': json_setting})
         if json_setting.get('pagination_link'):
-            actual_page = response.meta.get('actual_page', 1)
-            yield from self.pagination(response, json_setting, actual_page)
+            page_count = response.meta.get('page_count', 1)
+            yield from self.pagination(response, json_setting, page_count)
 
-    def pagination(self, response, json_setting, actual_page):
+    def pagination(self, response, json_setting, page_count):
         page_limit = json_setting.get('page_limit', float('inf'))
-        if actual_page >= page_limit:
+        if page_count >= page_limit:
             return
         next_page = response.xpath(json_setting['pagination_link']).get()
         if next_page:
@@ -39,7 +39,7 @@ class GeneralSpiderSpider(scrapy.Spider):
             yield response.follow(
                 next_page_url,
                 callback=self.parse,
-                meta={'web_data': json_setting, 'actual_page': actual_page + 1},
+                meta={'web_data': json_setting, 'page_count': page_count + 1},
                 dont_filter=True
             )
         else:
