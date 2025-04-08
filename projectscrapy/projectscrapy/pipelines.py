@@ -16,7 +16,7 @@ class SqlitePipeline:
 
     def __init__(self):
         main_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        path = os.path.join(main_dir, 'data', 'demo.db')
+        path = os.path.join(main_dir, 'data', 'data.db')
         self.con = sqlite3.connect(path)
         self.cur = self.con.cursor()
 
