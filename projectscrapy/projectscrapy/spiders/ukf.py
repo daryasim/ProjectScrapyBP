@@ -19,23 +19,20 @@ class UkfSpider(scrapy.Spider):
         article_linky = response.css('td.list-title a::attr(href)').getall()
         for link in article_linky:
             yield response.follow(link, callback=self.parse_article)
-
         if page_count < self.page_limit:
             next_page = response.css('li a[title="Nasl."]::attr(href)').get()
-            if next_page:
-                next_page_url = response.urljoin(next_page)
-                yield response.follow(next_page_url, callback=self.parse,
-                                      meta={'url': response.meta['url'], 'page_count': page_count + 1},
-                                      dont_filter=True)
+            next_page_url = response.urljoin(next_page)
+            yield response.follow(next_page_url, callback=self.parse,
+                                  meta={'url': response.meta['url'], 'page_count': page_count + 1})
 
     def parse_article(self, response):
         soup = BeautifulSoup(response.body, 'html.parser')
-        title = soup.select_one('article h1').get_text()
+        nazov = soup.select_one('article h1').get_text()
         target_divs = soup.select('article div')
         content = ' '.join(div.get_text() for div in target_divs)
 
         item = MainItem(
-            title=title,
+            title=nazov,
             content=content,
             url=response.url
         )

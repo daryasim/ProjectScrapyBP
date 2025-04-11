@@ -23,6 +23,8 @@ class GeneralSpiderSpider(scrapy.Spider):
         article_linky = []
         for selector in json_setting.get('link_selector', []):
             article_linky.extend(response.xpath(selector).getall())
+        if not article_linky:
+            self.logger.warning('No links, check selector')
         for link in article_linky:
             yield response.follow(link, callback=self.parse_article, meta={'web_data': json_setting})
         if json_setting.get('pagination_link'):
@@ -39,11 +41,9 @@ class GeneralSpiderSpider(scrapy.Spider):
             yield response.follow(
                 next_page_url,
                 callback=self.parse,
-                meta={'web_data': json_setting, 'page_count': page_count + 1},
-                dont_filter=True
-            )
+                meta={'web_data': json_setting, 'page_count': page_count + 1})
         else:
-            self.logger.info('No link, check selector')
+            self.logger.warning('No link, check selector')
 
     def parse_article(self, response):
         json_setting = response.meta['web_data']
