@@ -1,31 +1,31 @@
-## Inštalácia a spustenie
+## Installation and Setup
 
-* Klonujte/stiahnite projekt z repozitára.
-* Stiahnite a nainštalujte Python [z oficiálnej webovej stránky](https://www.python.org/downloads/).
-* Stiahnite a nainštalujte [nástroj na prehliadanie SQLite databáz](https://sqlitebrowser.org/dl/).
-* Prejdite do adresára projektu pomocou príkazového riadku alebo terminálu a vytvorte + aktivujte virtuálne prostredie pomocou príkazu:
+* Clone/download the project from the repository.
+* Download and install Python [from the official website](https://www.python.org/downloads/).
+* Download and install [SQLite database browser](https://sqlitebrowser.org/dl/).
+* Navigate to the project directory using the command line or terminal and create + activate a virtual environment using the following command:
 
 ```bash
 python -m venv .venv
-#aktivácia na Windows
+#activation on Windows
 .\.venv\Scripts\activate
-#aktivácia na MacOS/Linux
+#activation on MacOS/Linux
 source .venv/bin/activate
 ```
-* Nainštalujte knižníce:
+* Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-* Pre spustenie všetkých spiderov naraz prejdite do priečinka, ktorý obsahuje súbor *spiders_run.py*, a zadajte príkaz:
+* To run all spiders at once, navigate to the folder containing the *spiders_run.py* file and enter the following command:
 ```bash
 python spiders_run.py
 ```
-* Pre spustenie vybraného spidera prejdite do priečinka */spiders* a zadajte príkaz (nahradíte *spider_name* názvom spidera):
+* To run a specific spider, navigate to the */spiders* folder and enter the following command (replace *spider_name* with the name of the spider):
 ```bash
 scrapy crawl spider_name
 ```
-* Pre kontrolu zoznamu cieľových stránok (pridávanie/mazanie) je potrebné prejsť do súboru *websites.json*. 
-* Pre prehľad získaných textových dát otvorte databázový súbor *data.db* cez predtým nainštalovaný nástroj.
-## Plánovanie spúšťania spiderov
-* Pre Windows: Otvorte nástroj Task Scheduler a v sekcii *Actions* kliknite na *Create Basic Task*. Následne zvoľte interval a čas spustenia úlohy a pridajte súbor *schedule_spiders.bat* (predtým nahraďte v súbore cestu k projektu správnou cestou podľa umiestnenia na vašom systéme). Po dosiahnutí nastaveného času sa otvorí terminál a spustia sa spideri.
+* To check the list of target websites (add/remove), go to the *websites.json* file.
+* To view the collected text data, open the database file *data.db* using the previously installed tool.
+## Scheduling Spider Runs
+* For Windows: Open Task Scheduler, and under the *Actions* section, click *Create Basic Task*. Then choose the interval and time to run the task and add the *schedule_spiders.bat* file (make sure to replace the path in the file with the correct path based on the location of your project on your system). When the set time is reached, the terminal will open and the spiders will be run.
 
